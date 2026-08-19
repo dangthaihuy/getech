@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi" data-lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#03060E">
+
+    <!-- ===== SEO ===== -->
+    <title>GETECH - Media Technology &amp; Creative Content</title>
+    <meta name="description" content="GETECH - Media Tech kết nối công nghệ, truyền thông, âm nhạc và sáng tạo nội dung số.">
+    <meta name="keywords" content="GETECH, Media Tech, âm nhạc, truyền thông, sáng tạo nội dung số, Việt Nam">
+    <meta name="author" content="GETECH">
+    <link rel="canonical" href="https://getech.example.com/"><!-- Replace with the real GETECH domain -->
+
+    <!-- ===== Open Graph / social sharing ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GETECH">
+    <meta property="og:title" content="GETECH - Media Technology &amp; Creative Content">
+    <meta property="og:description" content="GETECH - Media Tech kết nối công nghệ, truyền thông, âm nhạc và sáng tạo nội dung số.">
+    <meta property="og:image" content="assets/images/og-image.jpg"><!-- Replace with GETECH official OG image (1200x630) -->
+    <meta property="og:locale" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GETECH - Media Technology &amp; Creative Content">
+    <meta name="twitter:description" content="GETECH - Media Tech kết nối công nghệ, truyền thông, âm nhạc và sáng tạo nội dung số.">
+    <meta name="twitter:image" content="assets/images/og-image.jpg">
+
+    <!-- ===== Favicon ===== -->
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+    <!-- ===== Fonts (Inter / Inter Tight - full Vietnamese diacritics support) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preload" as="image" href="assets/images/hero.jpg">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Without JS the preloader would never lift and every .reveal element
+         would stay at opacity 0. Show the full page instead. -->
+    <noscript>
+        <style>
+            .preloader { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .burger { display: none !important; }
+        </style>
+    </noscript>
+</head>
+
+<body>
+
+<!-- =========================================================
+     PRELOADER - fades away as soon as the page is ready
+     ========================================================= -->
+<div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">GETECH</div>
+    <div class="preloader__bar"><span></span></div>
+</div>
+
+<a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+
+<!-- =========================================================
+     HEADER - transparent over the hero, glass once scrolled
+     ========================================================= -->
+<header class="header" id="header">
+    <div class="header__inner">
+
+        <!-- Replace assets/images/logo.png with the official GETECH logo (transparent PNG or SVG) -->
+        <a class="logo" href="#home" aria-label="GETECH - về đầu trang">
+            <img src="assets/images/logo.png" alt="GETECH" width="880" height="220">
+        </a>
+
+        <nav class="nav" id="nav" aria-label="Điều hướng chính">
+            <ul class="nav__list">
+                <li><a class="nav__link is-active" href="#home"    data-i18n="nav.home">TRANG CHỦ</a></li>
+                <li><a class="nav__link" href="#about"    data-i18n="nav.about">VỀ CHÚNG TÔI</a></li>
+                <li><a class="nav__link" href="#services" data-i18n="nav.services">DỊCH VỤ</a></li>
+                <li><a class="nav__link" href="#news"     data-i18n="nav.news">TIN TỨC</a></li>
+                <li><a class="nav__link" href="#contact"  data-i18n="nav.contact">LIÊN HỆ</a></li>
+            </ul>
+        </nav>
+
+        <div class="header__actions">
+            <!-- Language switch: VI / EN -->
+            <div class="lang" role="group" aria-label="Chọn ngôn ngữ">
+                <button type="button" class="lang__btn is-active" data-lang-btn="vi" aria-pressed="true">VI</button>
+                <span class="lang__sep" aria-hidden="true"></span>
+                <button type="button" class="lang__btn" data-lang-btn="en" aria-pressed="false">EN</button>
+            </div>
+
+            <a class="btn btn--sm btn--ghost header__cta" href="#contact" data-i18n="nav.cta">HỢP TÁC</a>
+
+            <button type="button" class="burger" id="burger"
+                    aria-label="Mở menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- =========================================================
+     MOBILE MENU
+     ========================================================= -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-menu__nav" aria-label="Điều hướng di động">
+        <a href="#home"     data-i18n="nav.home">TRANG CHỦ</a>
+        <a href="#about"    data-i18n="nav.about">VỀ CHÚNG TÔI</a>
+        <a href="#services" data-i18n="nav.services">DỊCH VỤ</a>
+        <a href="#news"     data-i18n="nav.news">TIN TỨC</a>
+        <a href="#contact"  data-i18n="nav.contact">LIÊN HỆ</a>
+    </nav>
+    <div class="mobile-menu__foot">
+        <span data-i18n="hero.kicker">MEDIA × TECHNOLOGY × CREATIVITY</span>
+    </div>
+</div>
+
+<main id="main">
+
+<!-- =========================================================
+     1. HERO
+     ========================================================= -->
+<section class="hero" id="home">
+    <div class="hero__bg" data-parallax="0.25">
+        <!-- Replace with GETECH official hero image (or swap this <img> for a <video> background) -->
+        <img src="assets/images/hero.jpg" alt="" width="2400" height="1400" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <canvas class="hero__particles" id="particles" aria-hidden="true"></canvas>
+    <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+    <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+
+    <div class="hero__inner container" data-parallax="-0.12">
+        <p class="hero__eyebrow reveal" data-i18n="hero.eyebrow">MEDIA TECH COMPANY — VIỆT NAM</p>
+
+        <h1 class="hero__title">
+            <span class="hero__word reveal" style="--d:60ms">GETECH</span>
+        </h1>
+
+        <p class="hero__kicker reveal" style="--d:160ms" data-i18n="hero.kicker">MEDIA × TECHNOLOGY × CREATIVITY</p>
+
+        <p class="hero__lead reveal" style="--d:240ms" data-i18n="hero.lead">
+            Kết nối công nghệ và sáng tạo để tạo nên những sản phẩm âm nhạc, giải trí và trải nghiệm số
+            có sức lan tỏa từ Việt Nam đến thị trường quốc tế.
+        </p>
+
+        <div class="hero__actions reveal" style="--d:320ms">
+            <a class="btn btn--primary" href="#services">
+                <span data-i18n="hero.cta1">EXPLORE GETECH</span>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="#contact" data-i18n="hero.cta2">CONTACT US</a>
+        </div>
+    </div>
+
+    <a class="hero__scroll" href="#about" aria-label="Cuộn xuống">
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+        <span data-i18n="hero.scroll">CUỘN XUỐNG</span>
+    </a>
+</section>
+
+<!-- =========================================================
+     2. TICKER - a thin strip of motion that sets the media tone
+     ========================================================= -->
+<div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+        <div class="ticker__group">
+            <span>MUSIC PRODUCTION</span><i></i><span>DIGITAL MEDIA</span><i></i><span>CONTENT CREATION</span><i></i>
+            <span>ARTIST DEVELOPMENT</span><i></i><span>DISTRIBUTION</span><i></i><span>ENTERTAINMENT</span><i></i>
+        </div>
+        <div class="ticker__group">
+            <span>MUSIC PRODUCTION</span><i></i><span>DIGITAL MEDIA</span><i></i><span>CONTENT CREATION</span><i></i>
+            <span>ARTIST DEVELOPMENT</span><i></i><span>DISTRIBUTION</span><i></i><span>ENTERTAINMENT</span><i></i>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     3. ABOUT
+     ========================================================= -->
+<section class="about section" id="about">
+    <div class="container about__grid">
+
+        <div class="about__media">
+            <figure class="about__img about__img--main reveal">
+                <!-- Replace with GETECH official image -->
+                <img src="assets/images/about-01.jpg" alt="Không gian làm việc của GETECH" width="1500" height="1100" loading="lazy" decoding="async">
+            </figure>
+            <figure class="about__img about__img--sub reveal" style="--d:120ms">
+                <!-- Replace with GETECH official image -->
+                <img src="assets/images/about-02.jpg" alt="Đội ngũ GETECH" width="1000" height="1200" loading="lazy" decoding="async">
+            </figure>
+            <div class="about__badge reveal" style="--d:220ms">
+                <strong>EST.</strong><span>2026</span>
+            </div>
+        </div>
+
+        <div class="about__body">
+            <p class="eyebrow reveal" data-i18n="about.eyebrow">VỀ CHÚNG TÔI</p>
+            <h2 class="section__title reveal" style="--d:60ms" data-i18n="about.title">
+                THƯƠNG HIỆU MEDIA TECH<br>TỪ VIỆT NAM RA THẾ GIỚI
+            </h2>
+            <p class="about__text reveal" style="--d:120ms" data-i18n="about.body">
+                Tại GETECH, chúng tôi hướng tới xây dựng một thương hiệu Media Tech uy tín trong lĩnh vực
+                truyền thông và sáng tạo nội dung số — kết nối công nghệ và sáng tạo để tạo nên những sản phẩm
+                âm nhạc, giải trí và trải nghiệm số chất lượng, giàu giá trị và có sức lan tỏa.
+            </p>
+            <ul class="pills reveal" style="--d:180ms">
+                <li data-i18n="pill.tech">CÔNG NGHỆ</li>
+                <li data-i18n="pill.media">TRUYỀN THÔNG</li>
+                <li data-i18n="pill.music">ÂM NHẠC</li>
+                <li data-i18n="pill.ent">GIẢI TRÍ</li>
+                <li data-i18n="pill.content">NỘI DUNG SỐ</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     4. SERVICES
+     ========================================================= -->
+<section class="services section" id="services">
+    <div class="container">
+        <header class="section__head">
+            <p class="eyebrow reveal" data-i18n="services.eyebrow">DỊCH VỤ</p>
+            <h2 class="section__title section__title--xl reveal" style="--d:60ms" data-i18n="services.title">WHAT WE DO</h2>
+        </header>
+
+        <div class="services__grid">
+
+            <article class="card reveal">
+                <figure class="card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/music.jpg" alt="Sản xuất và phân phối âm nhạc" width="1200" height="1600" loading="lazy" decoding="async">
+                    <span class="card__scrim" aria-hidden="true"></span>
+                </figure>
+                <div class="card__body">
+                    <span class="card__index" aria-hidden="true">01</span>
+                    <h3 class="card__title">MUSIC</h3>
+                    <p class="card__desc" data-i18n="svc.music">SẢN XUẤT VÀ PHÂN PHỐI ÂM NHẠC</p>
+                    <span class="card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </article>
+
+            <article class="card card--offset reveal" style="--d:80ms">
+                <figure class="card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/media.jpg" alt="Phát hành, quảng bá và truyền thông" width="1200" height="1600" loading="lazy" decoding="async">
+                    <span class="card__scrim" aria-hidden="true"></span>
+                </figure>
+                <div class="card__body">
+                    <span class="card__index" aria-hidden="true">02</span>
+                    <h3 class="card__title">MEDIA</h3>
+                    <p class="card__desc" data-i18n="svc.media">PHÁT HÀNH, QUẢNG BÁ VÀ TRUYỀN THÔNG</p>
+                    <span class="card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </article>
+
+            <article class="card reveal" style="--d:160ms">
+                <figure class="card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/content.jpg" alt="Sáng tạo nội dung số" width="1200" height="1600" loading="lazy" decoding="async">
+                    <span class="card__scrim" aria-hidden="true"></span>
+                </figure>
+                <div class="card__body">
+                    <span class="card__index" aria-hidden="true">03</span>
+                    <h3 class="card__title">CONTENT</h3>
+                    <p class="card__desc" data-i18n="svc.content">SÁNG TẠO NỘI DUNG VỚI ĐA DẠNG CHỦ ĐỀ SẢN PHẨM</p>
+                    <span class="card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     5. STATS - numbers are the focal point
+     ========================================================= -->
+<section class="stats section" id="stats">
+    <div class="stats__glow" aria-hidden="true"></div>
+    <div class="container">
+        <header class="stats__head">
+            <p class="eyebrow reveal" data-i18n="stats.eyebrow">HỆ SINH THÁI</p>
+            <h2 class="section__title reveal" style="--d:60ms" data-i18n="stats.title">
+                HỆ THỐNG MẠNG XÃ HỘI ĐA DẠNG<br>TRÊN NHIỀU NỀN TẢNG
+            </h2>
+        </header>
+
+        <div class="stats__grid">
+            <div class="stat stat--feature reveal">
+                <span class="stat__num" data-count="500" data-suffix="M+">0</span>
+                <span class="stat__label" data-i18n="stat.views">LƯỢT XEM</span>
+            </div>
+            <div class="stat reveal" style="--d:60ms">
+                <span class="stat__num" data-count="300" data-suffix="+">0</span>
+                <span class="stat__label" data-i18n="stat.channels">KÊNH</span>
+            </div>
+            <div class="stat reveal" style="--d:120ms">
+                <span class="stat__num" data-count="10" data-suffix="M+">0</span>
+                <span class="stat__label" data-i18n="stat.followers">ĐĂNG KÝ, THEO DÕI</span>
+            </div>
+            <div class="stat reveal" style="--d:180ms">
+                <span class="stat__num" data-count="3" data-suffix="K+">0</span>
+                <span class="stat__label" data-i18n="stat.songs">BÀI HÁT</span>
+            </div>
+            <div class="stat reveal" style="--d:240ms">
+                <span class="stat__num" data-count="30" data-suffix="+">0</span>
+                <span class="stat__label" data-i18n="stat.artists">NGHỆ SĨ</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     6. PARTNERS - infinite logo marquee
+     ========================================================= -->
+<section class="partners section" id="partners">
+    <div class="container">
+        <header class="section__head section__head--center">
+            <p class="eyebrow reveal" data-i18n="partners.eyebrow">ĐỐI TÁC</p>
+            <h2 class="section__title reveal" style="--d:60ms" data-i18n="partners.title">OUR PARTNERS</h2>
+        </header>
+    </div>
+
+    <!-- Replace every file in assets/partners/ with the official partner logo (white, transparent PNG/SVG) -->
+    <div class="marquee reveal" id="partnerMarquee">
+        <div class="marquee__track">
+            <div class="marquee__group">
+                <span class="partner"><img src="assets/partners/meta.png" alt="Meta" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/youtube.png" alt="YouTube" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/tiktok.png" alt="TikTok" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/epidemic-sound.png" alt="Epidemic Sound" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/warner-music.png" alt="Warner Music Group" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/soundcloud.png" alt="SoundCloud" loading="lazy" decoding="async"></span>
+            </div>
+            <!-- Duplicate group: makes the loop seamless. Keep both in sync. -->
+            <div class="marquee__group" aria-hidden="true">
+                <span class="partner"><img src="assets/partners/meta.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/youtube.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/tiktok.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/epidemic-sound.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/warner-music.png" alt="" loading="lazy" decoding="async"></span>
+                <span class="partner"><img src="assets/partners/soundcloud.png" alt="" loading="lazy" decoding="async"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     7. NEWS - image first, text second
+     ========================================================= -->
+<section class="news section" id="news">
+    <div class="container">
+        <header class="section__head section__head--split">
+            <div>
+                <p class="eyebrow reveal" data-i18n="news.eyebrow">TIN TỨC</p>
+                <h2 class="section__title section__title--xl reveal" style="--d:60ms" data-i18n="news.title">LATEST NEWS</h2>
+            </div>
+            <a class="link-arrow reveal" style="--d:120ms" href="#news" data-soon>
+                <span data-i18n="news.all">XEM TẤT CẢ</span>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </header>
+
+        <div class="news__grid">
+
+            <a class="news-card reveal" href="#news" data-soon>
+                <figure class="news-card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/news-01.jpg" alt="Văn phòng GETECH" width="1600" height="1100" loading="lazy" decoding="async">
+                </figure>
+                <div class="news-card__body">
+                    <div class="news-card__meta">
+                        <time datetime="2026-01-15">15.01.2026</time>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span data-i18n="news.cat1">VĂN PHÒNG</span>
+                    </div>
+                    <h3 class="news-card__title">GETECH OFFICE</h3>
+                    <span class="news-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a class="news-card reveal" style="--d:80ms" href="#news" data-soon>
+                <figure class="news-card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/news-02.jpg" alt="Đội ngũ GETECH" width="1600" height="1100" loading="lazy" decoding="async">
+                </figure>
+                <div class="news-card__body">
+                    <div class="news-card__meta">
+                        <time datetime="2026-02-02">02.02.2026</time>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span data-i18n="news.cat2">ĐỘI NGŨ</span>
+                    </div>
+                    <h3 class="news-card__title">GETECH TEAM</h3>
+                    <span class="news-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a class="news-card reveal" style="--d:160ms" href="#news" data-soon>
+                <figure class="news-card__media">
+                    <!-- Replace with GETECH official image -->
+                    <img src="assets/images/news-03.jpg" alt="Hoạt động hợp tác của GETECH" width="1600" height="1100" loading="lazy" decoding="async">
+                </figure>
+                <div class="news-card__body">
+                    <div class="news-card__meta">
+                        <time datetime="2026-03-08">08.03.2026</time>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span data-i18n="news.cat3">HỢP TÁC</span>
+                    </div>
+                    <h3 class="news-card__title">MEETING &amp; PARTNERSHIP</h3>
+                    <span class="news-card__arrow" aria-hidden="true">
+                        <svg viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     8. CONTACT / CTA BAND
+     ========================================================= -->
+<section class="cta section" id="contact">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="container cta__inner">
+        <p class="eyebrow reveal" data-i18n="cta.eyebrow">LIÊN HỆ</p>
+        <h2 class="cta__title reveal" style="--d:60ms" data-i18n="cta.title">
+            HÃY CÙNG TẠO NÊN<br>ĐIỀU GÌ ĐÓ LAN TỎA
+        </h2>
+        <p class="cta__text reveal" style="--d:120ms" data-i18n="cta.text">
+            Bạn có một dự án âm nhạc, một chiến dịch truyền thông hay một ý tưởng nội dung số? Hãy nói chuyện với chúng tôi.
+        </p>
+        <div class="cta__actions reveal" style="--d:180ms">
+            <!-- Replace with the real GETECH contact email -->
+            <a class="btn btn--primary" href="mailto:contact@getech.vn">
+                <span>contact@getech.vn</span>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="#news" data-soon data-i18n="cta.btn2">TẢI HỒ SƠ NĂNG LỰC</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="footer">
+    <div class="container footer__grid">
+
+        <div class="footer__brand">
+            <a class="logo" href="#home" aria-label="GETECH">
+                <!-- Replace assets/images/logo.png with the official GETECH logo -->
+                <img src="assets/images/logo.png" alt="GETECH" width="880" height="220">
+            </a>
+            <p class="footer__tag">MEDIA × TECHNOLOGY × CREATIVITY</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Điều hướng chân trang">
+            <h2 class="footer__heading" data-i18n="footer.explore">KHÁM PHÁ</h2>
+            <ul>
+                <li><a href="#home"     data-i18n="nav.home">TRANG CHỦ</a></li>
+                <li><a href="#about"    data-i18n="nav.about">VỀ CHÚNG TÔI</a></li>
+                <li><a href="#services" data-i18n="nav.services">DỊCH VỤ</a></li>
+                <li><a href="#news"     data-i18n="nav.news">TIN TỨC</a></li>
+                <li><a href="#contact"  data-i18n="nav.contact">LIÊN HỆ</a></li>
+            </ul>
+        </nav>
+
+        <div class="footer__social">
+            <h2 class="footer__heading" data-i18n="footer.follow">THEO DÕI</h2>
+            <ul>
+                <!-- Replace "#" with the real GETECH social URLs -->
+                <li><a href="#" data-soon>FACEBOOK</a></li>
+                <li><a href="#" data-soon>YOUTUBE</a></li>
+                <li><a href="#" data-soon>TIKTOK</a></li>
+                <li><a href="#" data-soon>INSTAGRAM</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="container footer__bottom">
+        <p>© 2026 GETECH. All Rights Reserved.</p>
+        <p data-i18n="footer.made">Media Tech Company — Việt Nam</p>
+    </div>
+</footer>
+
+<!-- Scroll to top -->
+<button type="button" class="to-top" id="toTop" aria-label="Về đầu trang">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<!-- "Coming soon" messages land here -->
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
