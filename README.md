@@ -137,6 +137,21 @@ Mỗi hàm tự thoát nếu không tìm thấy phần tử của nó — xoá m
 - Tôn trọng `prefers-reduced-motion`: tắt chuyển động vị trí, marquee, particles — giữ lại fade.
 - Particles tự dừng khi Hero ra khỏi màn hình hoặc tab bị ẩn.
 
+### Chế độ 3D "cinematic" (`js/motion3d.js`)
+
+Khi trình duyệt có WebGL và người dùng không bật *reduced motion*, trang chạy như một bộ phim. Các section xếp chồng trên một sân khấu cố định, còn thanh cuộn chỉ dùng để tua một timeline GSAP. Hạt 3D (Three.js) biến hình theo từng cảnh: cầu → sóng âm → đĩa vinyl → cột dữ liệu → đường hầm → thiên hà → cầu.
+
+| Thư viện | Vai trò | Nạp từ |
+| --- | --- | --- |
+| three 0.170 | Hạt 3D WebGL | CDN jsDelivr, khai báo trong `<script type="importmap">` ở `index.html` |
+| gsap 3.13 (+ ScrollTrigger, SplitText) | Timeline, chuyển cảnh | như trên |
+| lenis 1.3 | Cuộn mượt | như trên |
+
+- Muốn thêm hay đổi cảnh: sửa `chapters`, `enters`, `exits`, `holds` và `POSES` trong `buildFilm()`.
+- Thời lượng chuyển cảnh nằm ở `TR`. Độ dài cuộn cho mỗi đơn vị timeline nằm ở `UNIT`.
+- Debug trong DevTools: `__film.go('news')`, `__film.timeline.progress()`.
+- Nếu CDN lỗi, không có WebGL, hoặc người dùng bật reduced motion, trang **tự quay về bản 2D** (`initMotion2D()` trong `script.js`). Nội dung luôn là HTML thật nên không ảnh hưởng SEO hay song ngữ.
+
 ### Mục "Coming Soon"
 
 Link nào gắn `data-soon` sẽ hiện toast "đang hoàn thiện" thay vì dẫn tới trang trống. Khi có trang thật, chỉ cần bỏ `data-soon` và điền `href`.

@@ -8,7 +8,7 @@
      05. Buttons & links        12. Partners
      06. Preloader              13. News
      07. Header & navigation    14. CTA / Footer / utilities
-     15. Scroll reveal   16. Responsive   17. Reduced motion
+     18. Scroll reveal   19. Responsive   20. Reduced motion   21. 3D mode
    ========================================================================= */
 
 /* ============================== 01. DESIGN TOKENS ========================
@@ -1119,4 +1119,252 @@ body.is-locked { overflow: hidden; }
 
     .to-top { transform: none; }
     .toast { transform: none; }
+}
+
+/* ============================== 21. 3D MODE ============================
+   .has-3d       — WebGL works, reduced motion off (inline check in <head>)
+   .is-cinematic — js/motion3d.js built the film: the page becomes a fixed
+                   stage of stacked scenes, and scrolling scrubs a timeline.
+   Without these classes the page is the original, fully static layout.
+   ====================================================================== */
+
+/* --- WebGL canvas + hero photo ---------------------------------------- */
+.hero__webgl {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    display: none;
+    pointer-events: none;
+}
+.has-3d .hero__webgl     { display: block; }
+.has-3d .hero__particles { display: none; }
+.has-3d .hero__bg        { opacity: 0.4; }   /* the photo steps back for the sphere */
+
+/* --- Lenis owns smooth scrolling --------------------------------------- */
+html.lenis { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* --- GETECH letters flip on their own axes ----------------------------- */
+.has-3d .hero__title { perspective: 900px; }
+.hero__word.is-split {
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+.hero__char {
+    display: inline-block;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* --- The stage --------------------------------------------------------- */
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.is-cinematic .hero__webgl { position: fixed; z-index: 0; }
+
+.is-cinematic #main {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;           /* only the scene on screen takes input */
+}
+.is-cinematic #main > section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    pointer-events: none;
+}
+.is-cinematic #main > section:not(.hero) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: calc(var(--header-h) + 3vh) 8vh;
+}
+.is-cinematic #main > section.is-current { pointer-events: auto; }
+.is-cinematic .hero { min-height: 100%; }
+
+/* Scroll length for the film — the only element left in normal flow */
+.scroll-space { width: 1px; visibility: hidden; pointer-events: none; }
+
+/* Ticker: a tape that sweeps across the first cut */
+.is-cinematic .ticker {
+    position: absolute;
+    left: -10vw;
+    right: -10vw;
+    top: 50%;
+    z-index: 2;
+    pointer-events: none;
+    background: rgba(3, 6, 14, 0.78);
+    border-color: var(--line-strong);
+}
+
+/* Footer rolls up from the bottom edge like end credits */
+.is-cinematic .footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+.is-cinematic .footer.is-current { pointer-events: auto; }
+
+/* Tighter rhythm: every scene has to fit one screen */
+.is-cinematic .section__head,
+.is-cinematic .stats__head { margin-bottom: clamp(24px, 4.5vh, 60px); }
+
+/* --- Cards: 3D tilt glare ---------------------------------------------- */
+/* GSAP drives these transforms every frame; a CSS transition on transform
+   would chase each value 300ms late and make the motion stutter. */
+.is-cinematic .card,
+.is-cinematic .news-card { transition: border-color 300ms ease; }
+.is-cinematic .news-card { position: relative; }
+.is-cinematic .card::after,
+.is-cinematic .news-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.16), transparent 45%);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+    .is-cinematic .card:hover::after,
+    .is-cinematic .news-card:hover::after { opacity: 1; }
+}
+
+/* --- Partners: a ring of logo plates ----------------------------------- */
+.marquee.is-ring {
+    --r: clamp(170px, 30vw, 460px);
+    height: clamp(120px, 18vh, 180px);
+    overflow: visible;
+    perspective: 1100px;
+    -webkit-mask-image: none;
+            mask-image: none;
+}
+.is-ring .marquee__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: none;
+    transform-style: preserve-3d;
+}
+/* track = tilt (GSAP) · spin = scroll rotation (GSAP) · group = idle drift */
+.is-ring .marquee__spin,
+.is-ring .marquee__group {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    transform-style: preserve-3d;
+}
+.is-ring .marquee__group { animation: ringSpin 60s linear infinite; }
+.is-ring .partner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: clamp(12px, 1.6vw, 20px) clamp(18px, 2.2vw, 30px);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(22, 103, 255, 0.16), rgba(7, 12, 23, 0.85));
+    transform: translate(-50%, -50%) rotateY(var(--a)) translateZ(var(--r));
+    backface-visibility: hidden;
+}
+.is-ring .partner img { height: clamp(18px, 2vw, 28px); opacity: 0.9; }
+@media (max-width: 767px) {
+    .marquee.is-ring { --r: 250px; }
+    .is-ring .partner { padding: 10px 14px; border-radius: 10px; }
+    .is-ring .partner img { height: 14px; }
+}
+@keyframes ringSpin { to { transform: rotateY(-360deg); } }
+
+/* --- Desktop: services cards sized to the screen ----------------------- */
+@media (min-width: 1024px) {
+    .is-cinematic .card__media { aspect-ratio: auto; height: min(46vh, 460px); }
+    .is-cinematic .card--offset { margin-top: 5vh; }
+}
+
+/* --- Below desktop: cards ride a horizontal track (panned by the film) -- */
+@media (max-width: 1023px) {
+    .is-cinematic .services__grid,
+    .is-cinematic .news__grid { display: flex; gap: 16px; align-items: stretch; }
+
+    .is-cinematic .services__grid > .card { flex: 0 0 min(72vw, 340px); margin-top: 0; }
+    .is-cinematic .services__grid > .card .card__media,
+    .is-cinematic .services__grid > .card:last-child .card__media { aspect-ratio: 3 / 4; }
+
+    .is-cinematic .news__grid > .news-card { flex: 0 0 min(78vw, 380px); }
+    .is-cinematic .news__grid > .news-card .news-card__media,
+    .is-cinematic .news__grid > .news-card:last-child .news-card__media { aspect-ratio: 16 / 11; }
+
+    .is-cinematic .about__media { max-width: min(560px, 84%); }
+}
+
+/* --- Reel: chapter + progress, like a video scrubber ------------------- */
+.reel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 85;
+    pointer-events: none;
+}
+.reel__meta {
+    position: absolute;
+    left: var(--gutter);
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--text-dim);
+}
+.reel__meta { transition: opacity 300ms ease; }
+.reel.is-end .reel__meta { opacity: 0; }
+.reel__index { color: var(--text); font-variant-numeric: tabular-nums; }
+.reel__label { color: var(--text-muted); }
+.reel__line  { width: 26px; height: 1px; background: var(--accent); }
+.reel__bar {
+    position: relative;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+}
+.reel__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--grad-brand);
+    transform-origin: left center;
+    transform: scaleX(0);
+    box-shadow: 0 0 12px rgba(34, 211, 255, 0.6);
+}
+.reel__tick {
+    position: absolute;
+    top: -2px;
+    width: 1px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.35);
+}
+@media (max-width: 767px) {
+    .reel__meta { display: none; }
 }

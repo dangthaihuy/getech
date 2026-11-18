@@ -6,7 +6,10 @@
      initPreloader()      initReveal()        initParticles()
      initHeader()         initCounters()      initToTop()
      initMobileMenu()     initParallax()      initComingSoon()
-     initScrollSpy()      initLanguage()
+     initScrollSpy()      initLanguage()      initMotion2D()
+
+   The cinematic 3D film (WebGL, smooth scroll, GSAP timeline) lives in
+   js/motion3d.js. This file stays the no-dependency baseline.
    ========================================================================= */
 
 'use strict';
@@ -151,6 +154,9 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const prefersReducedMotion = () => motionQuery.matches;
 
+/** True while js/motion3d.js owns the hero (class set in <head>). */
+const has3d = () => document.documentElement.classList.contains('has-3d');
+
 /** Current language — read once, kept in sync by initLanguage(). */
 let currentLang = 'vi';
 const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
@@ -176,6 +182,19 @@ function initPreloader() {
     if (!preloader) return;
 
     const dismiss = () => preloader.classList.add('is-done');
+
+    // 3D mode: lift once the WebGL scene is up (or has given up), so the
+    // intro plays as the curtain opens instead of behind it.
+    if (has3d()) {
+        if (window.__motionState) {
+            dismiss();
+        } else {
+            document.addEventListener('motion:ready', dismiss, { once: true });
+            document.addEventListener('motion:fallback', dismiss, { once: true });
+            setTimeout(dismiss, 5000);
+        }
+        return;
+    }
 
     if (document.readyState === 'complete') {
         dismiss();
@@ -533,6 +552,10 @@ function initToTop() {
     window.addEventListener('scroll', update, { passive: true });
 
     button.addEventListener('click', () => {
+        if (window.__lenis) {
+            window.__lenis.scrollTo(0, { duration: 1.4 });
+            return;
+        }
         window.scrollTo({
             top: 0,
             behavior: prefersReducedMotion() ? 'auto' : 'smooth'
@@ -579,6 +602,26 @@ function initComingSoon() {
 }
 
 /* -------------------------------------------------------------------------
+   2D MOTION (parallax, particles, counters, scroll spy)
+   Runs when 3D is off, or later if js/motion3d.js reports a failure.
+   In 3D mode the film timeline drives all of these instead.
+   ------------------------------------------------------------------------- */
+function initMotion2D() {
+    const run = () => {
+        initParallax();
+        initParticles();
+        initCounters();
+        initScrollSpy();
+    };
+
+    if (!has3d() || window.__motionState === 'fallback') {
+        run();
+    } else {
+        document.addEventListener('motion:fallback', run, { once: true });
+    }
+}
+
+/* -------------------------------------------------------------------------
    BOOT
    ------------------------------------------------------------------------- */
 function init() {
@@ -586,11 +629,8 @@ function init() {
     initLanguage();
     initHeader();
     initMobileMenu();
-    initScrollSpy();
     initReveal();
-    initCounters();
-    initParallax();
-    initParticles();
+    initMotion2D();
     initToTop();
     initComingSoon();
 }
